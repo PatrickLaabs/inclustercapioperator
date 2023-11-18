@@ -1,4 +1,4 @@
-package in-cluster-capi-operator
+package inclustercapioperator
 
 import (
 	"context"
