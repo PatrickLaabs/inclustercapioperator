@@ -16,7 +16,7 @@ func GetWorkloadClusters() ([]string, error) {
 	// Use in-cluster config if running inside Kubernetes, otherwise use kubeconfig file
 	config, err := rest.InClusterConfig()
 	if err != nil {
-		kubeconfig := "/home/patrick/Development/management-prod-cluster.kubeconfig"
+		kubeconfig := "./management-prod-cluster.kubeconfig"
 		config, err = clientcmd.BuildConfigFromFlags("", kubeconfig)
 		if err != nil {
 			fmt.Printf("Error building kubeconfig: %v\n", err)
