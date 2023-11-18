@@ -1,4 +1,4 @@
-package github.com/PatrickLaabs/inclustercapioperator
+package inclustercapioperator
 
 import (
 	"context"
