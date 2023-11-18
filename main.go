@@ -31,7 +31,7 @@ func GetWorkloadClusters() ([]string, error) {
 		return nil, fmt.Errorf("Error getting kubeconfig from Secret: %v", err)
 	}
 
-	kubeconfig, ok := secret.Data["kubeconfig"]
+	kubeconfig, ok := secret.Data["value"]
 	if !ok {
 		return nil, errors.New("kubeconfig not found in Secret")
 	}
