@@ -6,7 +6,8 @@ import (
 	"os"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
@@ -23,23 +24,28 @@ func main() {
 		}
 	}
 
-	// Create a Kubernetes clientset
-	clientset, err := kubernetes.NewForConfig(config)
+	dynamicClient, err := dynamic.NewForConfig(config)
 	if err != nil {
-		fmt.Printf("Error creating Kubernetes client: %v\n", err)
-		os.Exit(1)
+		fmt.Printf("Error creating dynamic client: %v", err)
 	}
 
-	// TODO: Interact with the Cluster API to list clusters
-
-	// Example: List all namespaces
-	namespaces, err := clientset.CoreV1().Namespaces().List(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		fmt.Printf("Error listing namespaces: %v\n", err)
-		os.Exit(1)
+	apiResource := metav1.APIResource{
+		Name: "clusters",
+		Kind: "Cluster",
 	}
 
-	for _, ns := range namespaces.Items {
-		fmt.Printf("Namespace: %s\n", ns.Name)
+	gvResouce := schema.GroupVersionResource{
+		Group:    "cluster.x-k8s.io",
+		Version:  "v1beta1", // Replace with the actual version
+		Resource: apiResource.Name,
+	}
+
+	clusters, err := dynamicClient.Resource(gvResouce).Namespace("default").List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		fmt.Printf("Error listing clusters: %v", err)
+	}
+
+	for _, cluster := range clusters.Items {
+		fmt.Printf("Cluster: %s\n", cluster.GetName())
 	}
 }
