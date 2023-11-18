@@ -12,7 +12,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func GetWorkloadClusters() {
+func GetWorkloadClusters() []string {
 	// Use in-cluster config if running inside Kubernetes, otherwise use kubeconfig file
 	config, err := rest.InClusterConfig()
 	if err != nil {
@@ -48,4 +48,11 @@ func GetWorkloadClusters() {
 	for _, cluster := range clusters.Items {
 		fmt.Printf("Cluster: %s\n", cluster.GetName())
 	}
+
+	var clusterNames []string
+	for _, cluster := range clusters.Items {
+		clusterNames = append(clusterNames, cluster.GetName())
+	}
+
+	return clusterNames
 }
