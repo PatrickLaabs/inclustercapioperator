@@ -1,4 +1,4 @@
-package main
+package in-cluster-capi-operator
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func main() {
+func GetWorkloadClusters() {
 	// Use in-cluster config if running inside Kubernetes, otherwise use kubeconfig file
 	config, err := rest.InClusterConfig()
 	if err != nil {
