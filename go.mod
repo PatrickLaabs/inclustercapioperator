@@ -1,4 +1,4 @@
-module github.com/PatrickLaabs/inclustercapioperator
+module inclustercapioperator
 
 go 1.21.4
 
