@@ -5,4 +5,5 @@ go program.
 
 ## Limitations
 
-Currently, it is only possbile to get a set of provisioned clusters on the management-cluster from the ClusterAPI API.
+- It is possbile to get a set of provisioned clusters on the management-cluster from the ClusterAPI API.
+- Get the available kubeconfigs for your cluster. currently, its only returning the values.
