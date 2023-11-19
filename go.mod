@@ -1,4 +1,4 @@
-module github.com/PatrickLaabs/inclustercapioperator
+module github.com/PatrickLaabs/inclustercapioperator/v1.0.1
 
 go 1.21.4
 
