@@ -127,3 +127,17 @@ func (co *ClusterOperator) GetKubernetesSecrets() ([]string, error) {
 
 	return kubeconfigSecretsNames, nil
 }
+
+func (co *ClusterOperator) GetMgmtIngresses() ([]string, error) {
+	ingresses, err := co.Clientset.NetworkingV1().Ingresses(co.DefaultNamespace).List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		fmt.Printf("Eror listing ingresses from all namespaces: %v\n", err)
+	}
+
+	var kubernetesIngresses []string
+	for _, ingress := range ingresses.Items {
+		kubernetesIngresses = append(kubernetesIngresses, ingress.GetName())
+	}
+
+	return kubernetesIngresses, nil
+}
